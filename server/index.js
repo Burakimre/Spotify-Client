@@ -1,6 +1,8 @@
 const utils = require('./utils');
 const express = require('express');
+const request = require('request');
 const cors = require('cors');
+const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
@@ -24,14 +26,15 @@ app.get('/login', function (req, res) {
 
   // your application requests authorization
   var scope = 'user-read-private user-read-email';
+
   res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
+    new URLSearchParams({
       response_type: 'code',
       client_id: CLIENT_ID,
       scope: scope,
       redirect_uri: REDIRECT_URI,
       state: state
-    }));
+    }).toString());
 });
 
 app.get('/callback', function(req, res) {
@@ -45,9 +48,9 @@ app.get('/callback', function(req, res) {
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
-      querystring.stringify({
+      new URLSearchParams({
         error: 'state_mismatch'
-      }));
+      }).toString());
   } else {
     res.clearCookie(stateKey);
     var authOptions = {
@@ -66,31 +69,19 @@ app.get('/callback', function(req, res) {
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
 
-        var access_token = body.access_token,
+        const access_token = body.access_token,
             refresh_token = body.refresh_token;
 
-        var options = {
-          url: 'https://api.spotify.com/v1/me',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
-        };
-
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
-
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
-          querystring.stringify({
+        res.redirect(`${CLIENT_URI}/#${new URLSearchParams({
             access_token: access_token,
             refresh_token: refresh_token
-          }));
+          }).toString()}`);
       } else {
         res.redirect('/#' +
-          querystring.stringify({
+        new URLSearchParams({
             error: 'invalid_token'
-          }));
+          }).toString());
       }
     });
   }
