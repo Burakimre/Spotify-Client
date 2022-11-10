@@ -32,7 +32,7 @@ export const getAccessToken = () => {
 	const error = searchParams.get('error');
 
 	if (error) { refreshAccessToken(); }
-	if ((Date.now() - getTokenTimestamp()) > EXPIRES_IN ) { console.log('Refreshing token...'); refreshAccessToken(); }
+	if ((Date.now() - getTokenTimestamp()) > EXPIRES_IN ) { refreshAccessToken(); }
 
 	if (!getLocalAccessToken() && access_token) {
 		setLocalAccessToken(access_token);
@@ -48,3 +48,7 @@ export const deleteTokens = () => {
 	window.localStorage.removeItem('spotify_refresh_token');
 	window.location.reload();
 }
+
+export const access_token = getAccessToken();
+
+export * from './SpotifyRoutes';
