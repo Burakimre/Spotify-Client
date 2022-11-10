@@ -6,7 +6,7 @@ import Playlist from '../Playlist'
 const Main = () => {
 	return (
 		<>
-			<main className="w-full bg-black/70">
+			<main className="w-full h-[calc(100%-4.5rem)] sm:h-full bg-black/[85%] order-first sm:order-last">
 				<Routes>
 					<Route path="/" element={ <Browse/> } />
 					<Route path="/browse" element={ <Browse/> } />

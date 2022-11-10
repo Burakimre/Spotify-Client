@@ -3,9 +3,16 @@ import { getCurrentUserPlaylist } from '../api/SpotifyAPI';
 
 function Banner(props: any) {
     return (
-        <div className="flex items-center relative w-full h-64 m-16 rounded-xl shadow-xl bg-cover bg-center" style={{ backgroundImage: `url(${props.src})` }}>
-            <div className="w-full p-4 rounded-xl bg-black/50 backdrop-blur">
+        <div className="flex items-center relative w-full h-64 m-6 sm:m-12 rounded-xl sm:shadow-xl">
+            <div className="hidden sm:block absolute w-full h-full rounded-xl z-0 overflow-hidden">
+                <img className="w-full h-full object-cover rounded-xl blur-lg" src={ props.src } alt=""/>
+                <div className="absolute top-0 w-full h-full bg-black/40"></div>
+            </div>
+            <div className="flex justify-center sm:justify-start space-x-8 w-full p-4 rounded-xl z-10">
                 <img className="w-56 h-56 rounded-xl" src={ props.src } alt=""/>
+                <div className="hidden sm:block">
+                    <span className="text-white text-6xl font-bold">{ props.name }</span>
+                </div>
             </div>
         </div>
     )
@@ -30,7 +37,7 @@ function Browse() {
             { playlist ? (
 
                 <div className="flex">
-                    <Banner src={playlist.images[0].url}/>
+                    <Banner name={playlist.name} src={playlist.images[0].url}/>
                 </div>
 
             ) : null }
