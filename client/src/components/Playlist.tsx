@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { getCurrentUserPlaylist } from '../api/SpotifyAPI';
+import Tracklist from './Tracklist';
 
 function Banner(props: any) {
     return (
-        <div className="flex items-center relative w-full h-64 m-6 sm:m-12 rounded-xl sm:shadow-xl">
+        <div className="flex items-center relative h-64 m-6 sm:m-12 rounded-xl sm:shadow-xl">
             <div className="hidden sm:block absolute w-full h-full rounded-xl z-0 overflow-hidden">
                 <img className="w-full h-full object-cover rounded-xl blur-lg" src={ props.src } alt=""/>
                 <div className="absolute top-0 w-full h-full bg-black/40"></div>
             </div>
             <div className="flex justify-center sm:justify-start space-x-8 w-full p-4 rounded-xl z-10">
                 <img className="w-56 h-56 rounded-xl" src={ props.src } alt=""/>
-                <div className="hidden sm:block">
+                <div className="hidden sm:flex items-center">
                     <span className="text-white text-6xl font-bold">{ props.name }</span>
                 </div>
             </div>
@@ -18,7 +19,7 @@ function Banner(props: any) {
     )
 }
 
-function Browse() {
+function Playlist() {
     const [playlist, setPlaylist] = useState<any>(null);
 
     useEffect(() => {
@@ -36,8 +37,9 @@ function Browse() {
         <React.Fragment>
             { playlist ? (
 
-                <div className="flex">
+                <div className="flex flex-col h-full">
                     <Banner name={playlist.name} src={playlist.images[0].url}/>
+                    <Tracklist tracks={playlist.tracks}/>
                 </div>
 
             ) : null }
@@ -45,4 +47,4 @@ function Browse() {
     )
 }
 
-export default Browse
+export default Playlist

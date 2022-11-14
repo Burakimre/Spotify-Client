@@ -1,0 +1,12 @@
+.scrollbar::-webkit-scrollbar {
+	@apply w-1 sm:w-2
+}
+   
+.scrollbar::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	@apply rounded
+}
+   
+.scrollbar::-webkit-scrollbar-thumb {
+	@apply bg-gray-500/50 rounded
+}
