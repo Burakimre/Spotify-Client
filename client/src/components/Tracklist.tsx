@@ -3,8 +3,6 @@ import { getDurationFromMilliseconds } from '../utils/Time'
 import './Layout/Scrollbar.css'
 
 function Track(props: any) {
-
-
     return (
         <>
             <div className="flex items-center space-x-5 text-neutral-400 hover:text-white select-none cursor-pointer transition-colors">
@@ -33,7 +31,7 @@ function Tracklist(props: any) {
     return (
         <>
             <div className="flex flex-col space-y-5 m-6 sm:m-12 mt-2 sm:mt-2 pr-3 sm:pr-0 overflow-x-hidden overflow-y-auto scrollbar">
-                { props.tracks.items.map((item: any, index: number) => {
+                { props.tracks.map((item: any, index: number) => {
                     return <Track key={ item.track.id } number={ index += 1 } name={ item.track.name } album={ item.track.album.name } duration={ item.track.duration_ms } artist={ item.track.album.artists[0].name } thumbnail={ item.track.album.images[2].url }/>
                 }) }
             </div>
