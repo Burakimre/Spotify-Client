@@ -2,7 +2,7 @@ import axios from "axios";
 
 const EXPIRES_IN = 3600 * 1000; // 1 hour in milliseconds
 
-const getLocalAccessToken = () => window.localStorage.getItem('spotify_access_token');
+const getLocalAccessToken = () => window.localStorage.getItem('spotify_access_token') ?? "";
 const setLocalAccessToken = (token) => {
 	setTokenTimestamp();
 	window.localStorage.setItem('spotify_access_token', token);

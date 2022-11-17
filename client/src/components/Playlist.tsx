@@ -22,12 +22,10 @@ function Playlist() {
     return (
         <React.Fragment>
             { playlist ? (
-
                 <div className="flex flex-col w-full h-full">
                     <Banner name={playlist.name} src={playlist.images[0].url}/>
                     <Tracklist tracks={playlist.tracks.items}/>
                 </div>
-
             ) : null }
         </React.Fragment>
     )

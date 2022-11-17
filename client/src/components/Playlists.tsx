@@ -33,7 +33,7 @@ function Playlists() {
         <React.Fragment>
             { playlists ? (
 
-                <div className="flex flex-col w-full h-full p-6 sm:p-12">
+                <div className="flex flex-col w-full h-full">
                     <h1 className="text-white text-4xl font-bold mb-12">Playlists</h1>
                     
                     <div className="scrollbar grid grid-cols-[repeat(auto-fit,_minmax(13rem,_1fr))] gap-6" style={{ overflowX: "hidden", overflowY: "auto" }}>
