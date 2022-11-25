@@ -8,9 +8,16 @@ function Banner(props: any) {
                 <div className="absolute top-0 w-full h-full bg-black/40"></div>
             </div>
             <div className="flex justify-center lg:justify-start space-x-8 w-full p-4 rounded-xl z-10">
-                <img className="w-56 h-56 rounded-xl" src={ props.src } alt=""/>
-                <div className="hidden lg:flex items-center">
-                    <span className="text-white text-6xl font-bold">{ props.name }</span>
+                <img className="w-36 h-36 lg:w-56 lg:h-56 rounded-xl" src={ props.src } alt=""/>
+                <div className="hidden lg:flex flex-col justify-center">
+                    <div className="flex-1"></div>
+                    <div className="flex flex-col">
+                        <span className="text-white text-6xl font-bold">{ props.name }</span>
+                        <span className="text-gray-300 text-md">{ props.description }</span>
+                    </div>
+                    <div className="flex flex-1">
+                        <span className="self-end text-white text-md">{ props.total + " " + (props.total == 1 ? "track" : "tracks") }</span>
+                    </div>
                 </div>
             </div>
         </div>

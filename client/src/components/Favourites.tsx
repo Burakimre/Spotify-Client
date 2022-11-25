@@ -25,7 +25,7 @@ function Favourites(props: any) {
             { playlist ? (
 
                 <div className="flex flex-col w-full h-full">
-                    <Banner name="Favourites" src="/images/favourites.png"/>
+                    <Banner name="Favourites" src="/images/favourites.png" total={ playlist.items.length }/>
                     <Tracklist tracks={ playlist.items.map((item: any) => {
                         return {
                             id: item.track.id,
