@@ -7,9 +7,9 @@ function Artist(props: any) {
     return (
         <>
             <a href={ props.src } target="_blank" rel="noreferrer">
-                <div className="flex flex-col basis-42 p-4 hover:bg-black/20 rounded-xl space-y-1 select-none cursor-pointer transition-colors">
-                    <img className="w-32 h-32 object-cover rounded-xl" src={ props.image } alt="" />
-                    <span className="pt-2 text-white text-xl">{ props.name }</span>
+                <div className="flex flex-col p-4 hover:bg-black/20 rounded-xl space-y-1 select-none cursor-pointer transition-colors">
+                    <img className="w-32 h-32 object-cover rounded-xl shadow-xl" src={ props.image } alt="" />
+                    <span className="text-center w-32 pt-2 text-white text-sm">{ props.name }</span>
                 </div>
             </a>
         </>
@@ -43,7 +43,7 @@ function Profile() {
         <React.Fragment>
             {
 				(profile && topArtists && topTracks) ? (
-					<div className="flex flex-col h-full space-y-10 overflow-y-auto">
+					<div className="scrollbar flex flex-col h-full pr-2 space-y-10 overflow-y-auto">
                         <div className="flex items-center flex-col lg:flex-row mt-4 space-x-0 lg:space-x-8 space-y-6 lg:space-y-0">
                             <img className="w-56 h-56 object-cover rounded-xl" src={ profile.images[0].url } alt=""/>
                             <div className="flex items-center">
@@ -53,15 +53,15 @@ function Profile() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-col overflow-hidden">
+                        <div className="flex flex-col min-h-[16rem] lg:min-h-[32rem] overflow-hidden">
                             <span className="text-white text-3xl font-bold">Top Artists</span>
-                            <div className="scrollbar flex flex-wrap gap-6 mt-4 overflow-y-auto">
+                            <div className="scrollbar flex flex-wrap gap-4 mt-4 overflow-y-auto">
                                 { topArtists.items.map((item: any) => {
                                     return <Artist key={ item.id } name={ item.name } image={ item.images[2].url } src={ item.external_urls.spotify }/>
                                 }) }
                             </div>
                         </div>
-                        <div className="flex flex-col overflow-hidden">
+                        <div className="flex flex-col min-h-[16rem] lg:min-h-[32rem] overflow-hidden">
                             <span className="text-white text-3xl font-bold">Top Tracks</span>
                             <div className="scrollbar mt-4 overflow-y-auto">
                                 <Tracklist tracks={ topTracks.items.map((item: any) => {
