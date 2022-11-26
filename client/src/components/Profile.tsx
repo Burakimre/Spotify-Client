@@ -31,8 +31,6 @@ function Profile() {
 
             resp = await getCurrentUserTopTracks();
             setTopTracks(resp.data);
-
-            console.log(topTracks);
         }
 
         fetchData()
@@ -53,7 +51,7 @@ function Profile() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-col min-h-[16rem] lg:min-h-[32rem] overflow-hidden">
+                        <div className="flex flex-col">
                             <span className="text-white text-3xl font-bold">Top Artists</span>
                             <div className="scrollbar flex flex-wrap gap-4 mt-4 overflow-y-auto">
                                 { topArtists.items.map((item: any) => {
@@ -61,7 +59,7 @@ function Profile() {
                                 }) }
                             </div>
                         </div>
-                        <div className="flex flex-col min-h-[16rem] lg:min-h-[32rem] overflow-hidden">
+                        <div className="flex flex-col">
                             <span className="text-white text-3xl font-bold">Top Tracks</span>
                             <div className="scrollbar mt-4 overflow-y-auto">
                                 <Tracklist tracks={ topTracks.items.map((item: any) => {

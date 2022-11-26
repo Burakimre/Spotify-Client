@@ -15,7 +15,7 @@ function Banner(props: any) {
                         <span className="text-white text-md lg:text-6xl font-bold">{ props.name }</span>
                         <span className="text-gray-300 text-sm lg:text-md">{ props.description }</span>
                     </div>
-                    <div className="flex flex-1 justify-center">
+                    <div className="flex flex-1 justify-center lg:justify-start">
                         <span className="self-end text-gray-400 lg:text-white text-md">{ props.total + " " + (props.total == 1 ? "track" : "tracks") }</span>
                     </div>
                 </div>
