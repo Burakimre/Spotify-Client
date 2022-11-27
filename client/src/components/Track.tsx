@@ -13,11 +13,11 @@ function Track({ track, number }: Props) {
         <>
             <a target="_blank" rel="noreferrer" href={ track.url }>
                 <div className="flex items-center space-x-5 text-neutral-400 hover:text-white select-none cursor-pointer transition-colors group">
-                    <div className="w-4">
+                    <div className="hidden lg:block w-4">
                         <span className="block group-hover:hidden">{ number }</span>
                         <span className="hidden group-hover:block"><i className="fa-solid fa-play"></i></span>
                     </div>
-                    <div>
+                    <div className="flex basis-24 lg:basis-16">
                         <img className="rounded-lg" src={ track.image } alt="track thumbnail" />
                     </div>
                     <div className="flex flex-col w-96">

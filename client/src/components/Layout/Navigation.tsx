@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from "react-router-dom";
+import { LoadingContext } from '../../contexts/LoadingContext';
 
 const NavigationItem = (props: any) => {
+	const { setLoading } = useContext(LoadingContext);
+
 	return (
 		<>
 			<NavLink to={ props.to } className={ ({isActive}) => [
 				'flex items-center space-x-1 text-neutral-400 text-base font-normal hover:text-white transition-colors',
 				isActive ? '[&>*]:text-white' : null
-			].join(' ')}>
+			].join(' ')} onClick={ () => { setLoading(true); } }>
 				<div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 justify-center items-center w-[4.5rem] h-[4.5rem] lg:w-16 lg:h-16">
 					<i className={ "mt-2 lg:mt-0 " + props.icon }></i>
 					<span className="block lg:hidden text-sm">{ props.label }</span>

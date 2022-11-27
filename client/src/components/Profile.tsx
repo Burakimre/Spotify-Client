@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { getCurrentUserProfile, getCurrentUserTopArtists, getCurrentUserTopTracks } from "../api/SpotifyRoutes";
 import { TrackModel } from "../interfaces";
+import Loading from "./Loading";
 import Tracklist from "./Tracklist";
 
 function Artist(props: any) {
@@ -47,12 +48,12 @@ function Profile() {
                             <div className="flex items-center">
                                 <div className="flex items-center lg:items-start content-between flex-col">
                                     <span className="text-white text-5xl font-bold">{ profile.display_name }</span>
-                                    <span className="text-white text-md">{profile.followers.total} followers</span>
+                                    <span className="text-white text-md">{ profile.followers.total + " " + (profile.followers.total === 1 ? "follower" : "followers") }</span>
                                 </div>
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-white text-3xl font-bold">Top Artists</span>
+                            <span className="text-white text-3xl text-center lg:text-left font-bold">Top Artists</span>
                             <div className="scrollbar flex flex-wrap gap-4 mt-4 overflow-y-auto">
                                 { topArtists.items.map((item: any) => {
                                     return <Artist key={ item.id } name={ item.name } image={ item.images[2].url } src={ item.external_urls.spotify }/>
@@ -60,7 +61,7 @@ function Profile() {
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-white text-3xl font-bold">Top Tracks</span>
+                            <span className="text-white text-3xl text-center lg:text-left font-bold">Top Tracks</span>
                             <div className="scrollbar mt-4 overflow-y-auto">
                                 <Tracklist tracks={ topTracks.items.map((item: any) => {
                                     return {
@@ -76,7 +77,7 @@ function Profile() {
                             </div>
                         </div>
                     </div>
-				) : null
+				) : <Loading/>
 			}
 		</React.Fragment>
     )

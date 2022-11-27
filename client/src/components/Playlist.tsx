@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getCurrentUserPlaylist } from '../api/SpotifyAPI';
 import { TrackModel } from '../interfaces';
 import Banner from './Banner';
+import Loading from './Loading';
 import Tracklist from './Tracklist';
 
 function Playlist() {
@@ -37,7 +38,7 @@ function Playlist() {
                         } as TrackModel
                     }) }/>
                 </div>
-            ) : null }
+            ) : <Loading/> }
         </React.Fragment>
     )
 }

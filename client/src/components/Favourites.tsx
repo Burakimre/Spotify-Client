@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom';
 import { getUserSavedTracks } from '../api/SpotifyAPI';
+import { LoadingContext } from '../contexts/LoadingContext';
 import { TrackModel } from '../interfaces';
 import Banner from './Banner';
+import Loading from './Loading';
 import Tracklist from './Tracklist';
 
-function Favourites(props: any) {
+function Favourites() {
+    const { setLoading } = useContext(LoadingContext);
     const [playlist, setPlaylist] = useState<any>(null);
     const { playlistId } = useParams();
 
@@ -18,7 +21,7 @@ function Favourites(props: any) {
 
         fetchData()
             .catch(console.error);
-    }, [playlistId]);
+    }, [playlistId, setLoading]);
 
     return (
         <React.Fragment>
@@ -39,7 +42,7 @@ function Favourites(props: any) {
                     }) }/>
                 </div>
 
-            ) : null }
+            ) : <Loading/> }
         </React.Fragment>
     )
 }

@@ -10,7 +10,7 @@ type Props = {
 function Tracklist({ tracks }: Props) {
     return (
         <>
-            <div className="flex flex-col space-y-5 m-6 lg:m-12 mt-2 lg:mt-2 pr-3 lg:pr-0 overflow-x-hidden overflow-y-auto scrollbar">
+            <div className="flex flex-col space-y-5 lg:m-4 mt-2 lg:mt-2 pr-3 lg:pr-0 overflow-x-hidden overflow-y-auto scrollbar">
                 { tracks.map((track: TrackModel, index: number) => {
                     return <Track key={ track.id } track={ track } number={ index += 1 }/>
                 }) }
