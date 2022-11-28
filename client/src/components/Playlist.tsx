@@ -28,7 +28,7 @@ function Playlist() {
         <React.Fragment>
             { playlist ? (
                 <div className="flex flex-col w-full h-full">
-                    <Banner name={playlist.name} src={playlist.images[0].url} total={ playlist.tracks.items.length } description={ playlist.description }/>
+                    <Banner name={playlist.name} src={playlist.images[0].url} total={ playlist.tracks.items.length } owner={ playlist.owner.display_name } ownerUrl={ playlist.owner.external_urls.spotify } description={ playlist.description }/>
                     <Tracklist tracks={ playlist.tracks.items.map((item: any) => {
                         return {
                             id: item.track.id,

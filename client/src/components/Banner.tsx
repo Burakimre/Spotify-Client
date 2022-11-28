@@ -12,10 +12,11 @@ function Banner(props: any) {
                 <div className="flex flex-col justify-center">
                     <div className="flex-1"></div>
                     <div className="flex flex-col">
-                        <span className="text-white text-md lg:text-6xl font-bold">{ props.name }</span>
-                        <span className="text-gray-300 text-sm lg:text-md">{ props.description }</span>
+                        <span className="text-white text-md lg:text-6xl text-center lg:text-left font-bold">{ props.name }</span>
+                        <span className="text-gray-300 text-sm lg:text-md text-center lg:text-left">{ props.description }</span>
                     </div>
-                    <div className="flex flex-1 justify-center lg:justify-start">
+                    <div className="flex flex-1 justify-center lg:justify-start space-x-2">
+                        { props.owner ? <><span className="self-end text-gray-400 lg:text-white text-md"><a href={ props.ownerUrl } target="_blank" rel="noreferrer">{ props.owner }</a></span><span className="self-end text-gray-400 lg:text-white text-md">•</span></> : null }
                         <span className="self-end text-gray-400 lg:text-white text-md">{ props.total + " " + (props.total === 1 ? "track" : "tracks") }</span>
                     </div>
                 </div>
