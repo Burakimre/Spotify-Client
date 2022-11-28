@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { getCurrentUserPlaylists } from '../api/SpotifyAPI';
+import { LoadingContext } from '../contexts/LoadingContext';
 import Loading from './Loading';
 
 function Playlist(props: any) {
@@ -18,6 +19,7 @@ function Playlist(props: any) {
 }
 
 function Playlists() {
+    const { setLoading } = useContext(LoadingContext);
     const [playlists, setPlaylists] = useState<any>(null);
 
     useEffect(() => {
@@ -25,11 +27,12 @@ function Playlists() {
             const resp = await getCurrentUserPlaylists();
 
             setPlaylists(resp.data);
+            setLoading(false);
         }
 
         fetchData()
             .catch(console.error);
-    }, []);
+    }, [setLoading]);
 
     return (
         <React.Fragment>

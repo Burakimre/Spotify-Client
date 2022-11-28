@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { getCurrentUserProfile, getCurrentUserTopArtists, getCurrentUserTopTracks } from "../api/SpotifyRoutes";
+import { LoadingContext } from "../contexts/LoadingContext";
 import { TrackModel } from "../interfaces";
 import Loading from "./Loading";
 import Tracklist from "./Tracklist";
+
+enum TimeRange {
+    LongTerm = "long_term",
+    MediumTerm = "medium_term",
+    ShortTerm = "short_term"
+}
 
 function Artist(props: any) {
     return (
@@ -18,9 +25,32 @@ function Artist(props: any) {
 }
 
 function Profile() {
+    const { setLoading } = useContext(LoadingContext);
 	const [profile, setProfile] = useState<any>(null);
     const [topArtists, setTopArtists] = useState<any>(null);
     const [topTracks, setTopTracks] = useState<any>(null);
+    const [topArtistsActiveTimeRange, setTopArtistsActiveTimeRange] = useState<TimeRange>(TimeRange.LongTerm);
+    const [topTracksActiveTimeRange, setTopTracksActiveTimeRange] = useState<TimeRange>(TimeRange.LongTerm);
+
+    const changeTopArtistsTimeRange = async (timeRange: TimeRange) => {
+        try {
+            let resp = await getCurrentUserTopArtists(timeRange);
+            setTopArtists(resp.data);
+            setTopArtistsActiveTimeRange(timeRange);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const changeTopTracksTimeRange = async (timeRange: TimeRange) => {
+        try {
+            let resp = await getCurrentUserTopTracks(timeRange);
+            setTopTracks(resp.data);
+            setTopTracksActiveTimeRange(timeRange);
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,11 +62,13 @@ function Profile() {
 
             resp = await getCurrentUserTopTracks();
             setTopTracks(resp.data);
+
+            setLoading(false);
         }
 
         fetchData()
             .catch(console.error);
-    }, []);
+    }, [setLoading]);
 
     return (
         <React.Fragment>
@@ -53,7 +85,17 @@ function Profile() {
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-white text-3xl text-center lg:text-left font-bold">Top Artists</span>
+                            <div className="flex flex-col lg:flex-row justify-center lg:justify-start">
+                                <span className="flex-1 text-white text-3xl text-center lg:text-left font-bold">Top Artists</span>
+                                <div className="flex space-x-4 justify-center lg:justify-start mt-4 lg:mt-0">
+                                    <button onClick={ () => changeTopArtistsTimeRange(TimeRange.LongTerm) }
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topArtistsActiveTimeRange === TimeRange.LongTerm ? "bg-white text-black" : "")}` }>All Time</button>
+                                    <button onClick={ () => changeTopArtistsTimeRange(TimeRange.MediumTerm) }
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topArtistsActiveTimeRange === TimeRange.MediumTerm ? "bg-white text-black" : "")}` }>Last 6 Months</button>
+                                    <button onClick={ () => changeTopArtistsTimeRange(TimeRange.ShortTerm) }
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topArtistsActiveTimeRange === TimeRange.ShortTerm ? "bg-white text-black" : "")}` }>Last 4 Weeks</button>
+                                </div>
+                            </div>
                             <div className="scrollbar flex flex-wrap gap-4 mt-4 overflow-y-auto">
                                 { topArtists.items.map((item: any) => {
                                     return <Artist key={ item.id } name={ item.name } image={ item.images[2].url } src={ item.external_urls.spotify }/>
@@ -61,7 +103,17 @@ function Profile() {
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-white text-3xl text-center lg:text-left font-bold">Top Tracks</span>
+                        <div className="flex flex-col lg:flex-row justify-center lg:justify-start">
+                                <span className="flex-1 text-white text-3xl text-center lg:text-left font-bold">Top Tracks</span>
+                                <div className="flex space-x-4 justify-center lg:justify-start mt-4 lg:mt-0">
+                                    <button onClick={ () => changeTopTracksTimeRange(TimeRange.LongTerm) }
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topTracksActiveTimeRange === TimeRange.LongTerm ? "bg-white text-black" : "")}` }>All Time</button>
+                                    <button onClick={ () => changeTopTracksTimeRange(TimeRange.MediumTerm) }
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topTracksActiveTimeRange === TimeRange.MediumTerm ? "bg-white text-black" : "")}` }>Last 6 Months</button>
+                                    <button onClick={ () => changeTopTracksTimeRange(TimeRange.ShortTerm) }
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topTracksActiveTimeRange === TimeRange.ShortTerm ? "bg-white text-black" : "")}` }>Last 4 Weeks</button>
+                                </div>
+                            </div>
                             <div className="scrollbar mt-4 overflow-y-auto">
                                 <Tracklist tracks={ topTracks.items.map((item: any) => {
                                     return {

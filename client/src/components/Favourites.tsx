@@ -17,6 +17,7 @@ function Favourites() {
             const resp = await getUserSavedTracks();
 
             setPlaylist(resp.data);
+            setLoading(false);
         }
 
         fetchData()

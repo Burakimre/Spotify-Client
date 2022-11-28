@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom"
 import { LoadingContext } from '../../contexts/LoadingContext'
 import Favourites from '../Favourites'
-import Loading from '../Loading'
 import Playlist from '../Playlist'
 import Playlists from '../Playlists'
 import Profile from '../Profile'
