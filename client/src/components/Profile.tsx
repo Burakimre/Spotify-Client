@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { getCurrentUserProfile, getCurrentUserTopArtists, getCurrentUserTopTracks } from "../api/SpotifyRoutes";
+import { getCurrentUserPlaylists, getCurrentUserProfile, getCurrentUserTopArtists, getCurrentUserTopTracks } from "../api/SpotifyRoutes";
 import { LoadingContext } from "../contexts/LoadingContext";
 import { TrackModel } from "../interfaces";
 import Loading from "./Loading";
@@ -33,6 +33,7 @@ function Profile() {
     const [topTracks, setTopTracks] = useState<any>(null);
     const [topArtistsActiveTimeRange, setTopArtistsActiveTimeRange] = useState<TimeRange>(TimeRange.LongTerm);
     const [topTracksActiveTimeRange, setTopTracksActiveTimeRange] = useState<TimeRange>(TimeRange.LongTerm);
+    const [totalPlaylists, setTotalPlaylists] = useState<number>(0);
 
     const changeTopArtistsTimeRange = async (timeRange: TimeRange) => {
         try {
@@ -65,6 +66,9 @@ function Profile() {
             resp = await getCurrentUserTopTracks();
             setTopTracks(resp.data);
 
+            resp = await getCurrentUserPlaylists();
+            setTotalPlaylists(resp.data.total);
+
             setLoading(false);
         }
 
@@ -77,12 +81,17 @@ function Profile() {
             {
 				(profile && topArtists && topTracks) ? (
 					<div className="scrollbar flex flex-col h-full pr-2 space-y-10 overflow-y-auto">
-                        <div className="flex items-center flex-col lg:flex-row mt-4 space-x-0 lg:space-x-8 space-y-6 lg:space-y-0">
+                        <div className="flex items-center lg:items-stretch flex-col lg:flex-row mt-4 space-x-0 lg:space-x-8 space-y-6 lg:space-y-0">
                             <img className="w-56 h-56 object-cover rounded-xl" src={ profile.images[0].url } alt=""/>
-                            <div className="flex items-center">
-                                <div className="flex items-center lg:items-start content-between flex-col">
+                            <div className="flex flex-col justify-center">
+                                <div className="flex-1"></div>
+                                <div className="flex flex-col">
                                     <span className="text-white text-5xl font-bold">{ profile.display_name }</span>
-                                    <span className="text-white text-md">{ profile.followers.total + " " + (profile.followers.total === 1 ? "follower" : "followers") }</span>
+                                </div>
+                                <div className="flex flex-1 justify-center lg:justify-start space-x-2">
+                                    <span className="self-end text-gray-400 text-md">{ profile.followers.total + " " + (profile.followers.total === 1 ? "follower" : "followers") }</span>
+                                    <span className="self-end text-gray-400 text-md">•</span>
+                                    <span className="self-end text-gray-400 text-md">{ totalPlaylists + " " + (totalPlaylists === 1 ? "playlist" : "playlists") }</span>
                                 </div>
                             </div>
                         </div>
