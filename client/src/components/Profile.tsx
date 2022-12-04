@@ -16,7 +16,9 @@ function Artist(props: any) {
         <>
             <a href={ props.src } target="_blank" rel="noreferrer">
                 <div className="flex flex-col p-4 hover:bg-black/20 rounded-xl space-y-1 select-none cursor-pointer transition-colors">
-                    <img className="w-32 h-32 object-cover rounded-xl shadow-xl" src={ props.image } alt="" />
+                    <div className="w-32 h-32">
+                        <img className="w-full h-full object-cover rounded-xl shadow-xl" src={ props.image } alt="" />
+                    </div>
                     <span className="text-center w-32 pt-2 text-white text-sm">{ props.name }</span>
                 </div>
             </a>
@@ -89,14 +91,14 @@ function Profile() {
                                 <span className="flex-1 text-white text-3xl text-center lg:text-left font-bold">Top Artists</span>
                                 <div className="flex space-x-4 justify-center lg:justify-start mt-4 lg:mt-0">
                                     <button onClick={ () => changeTopArtistsTimeRange(TimeRange.LongTerm) }
-                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topArtistsActiveTimeRange === TimeRange.LongTerm ? "bg-white text-black" : "")}` }>All Time</button>
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md transition-colors ${(topArtistsActiveTimeRange === TimeRange.LongTerm ? "bg-white text-black" : "")}` }>All Time</button>
                                     <button onClick={ () => changeTopArtistsTimeRange(TimeRange.MediumTerm) }
-                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topArtistsActiveTimeRange === TimeRange.MediumTerm ? "bg-white text-black" : "")}` }>Last 6 Months</button>
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md transition-colors ${(topArtistsActiveTimeRange === TimeRange.MediumTerm ? "bg-white text-black" : "")}` }>Last 6 Months</button>
                                     <button onClick={ () => changeTopArtistsTimeRange(TimeRange.ShortTerm) }
-                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topArtistsActiveTimeRange === TimeRange.ShortTerm ? "bg-white text-black" : "")}` }>Last 4 Weeks</button>
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md transition-colors ${(topArtistsActiveTimeRange === TimeRange.ShortTerm ? "bg-white text-black" : "")}` }>Last 4 Weeks</button>
                                 </div>
                             </div>
-                            <div className="scrollbar flex flex-wrap gap-4 mt-4 overflow-y-auto">
+                            <div className="scrollbar grid grid-cols-[repeat(auto-fit,_minmax(9rem,_1fr))] gap-4 mt-4">
                                 { topArtists.items.map((item: any) => {
                                     return <Artist key={ item.id } name={ item.name } image={ item.images[2].url } src={ item.external_urls.spotify }/>
                                 }) }
@@ -107,11 +109,11 @@ function Profile() {
                                 <span className="flex-1 text-white text-3xl text-center lg:text-left font-bold">Top Tracks</span>
                                 <div className="flex space-x-4 justify-center lg:justify-start mt-4 lg:mt-0">
                                     <button onClick={ () => changeTopTracksTimeRange(TimeRange.LongTerm) }
-                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topTracksActiveTimeRange === TimeRange.LongTerm ? "bg-white text-black" : "")}` }>All Time</button>
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md transition-colors ${(topTracksActiveTimeRange === TimeRange.LongTerm ? "bg-white text-black" : "")}` }>All Time</button>
                                     <button onClick={ () => changeTopTracksTimeRange(TimeRange.MediumTerm) }
-                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topTracksActiveTimeRange === TimeRange.MediumTerm ? "bg-white text-black" : "")}` }>Last 6 Months</button>
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md transition-colors ${(topTracksActiveTimeRange === TimeRange.MediumTerm ? "bg-white text-black" : "")}` }>Last 6 Months</button>
                                     <button onClick={ () => changeTopTracksTimeRange(TimeRange.ShortTerm) }
-                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md ${(topTracksActiveTimeRange === TimeRange.ShortTerm ? "bg-white text-black" : "")}` }>Last 4 Weeks</button>
+                                            className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md transition-colors ${(topTracksActiveTimeRange === TimeRange.ShortTerm ? "bg-white text-black" : "")}` }>Last 4 Weeks</button>
                                 </div>
                             </div>
                             <div className="scrollbar mt-4 overflow-y-auto">
