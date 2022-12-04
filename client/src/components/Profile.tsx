@@ -15,7 +15,7 @@ function Artist(props: any) {
     return (
         <>
             <a href={ props.src } target="_blank" rel="noreferrer">
-                <div className="flex flex-col p-4 hover:bg-black/20 rounded-xl space-y-1 select-none cursor-pointer transition-colors">
+                <div className="flex flex-col p-0 lg:p-4 hover:bg-black/20 rounded-xl space-y-1 select-none cursor-pointer transition-colors">
                     <div className="w-32 h-32">
                         <img className="w-full h-full object-cover rounded-xl shadow-xl" src={ props.image } alt="" />
                     </div>
@@ -107,7 +107,7 @@ function Profile() {
                                             className={ `min-h-[2.25rem] px-4 text-white border-2 border-white rounded-md transition-colors ${(topArtistsActiveTimeRange === TimeRange.ShortTerm ? "bg-white text-black" : "")}` }>Last 4 Weeks</button>
                                 </div>
                             </div>
-                            <div className="scrollbar grid grid-cols-[repeat(auto-fit,_minmax(9rem,_1fr))] gap-4 mt-4">
+                            <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-8 lg:mt-4">
                                 { topArtists.items.map((item: any) => {
                                     return <Artist key={ item.id } name={ item.name } image={ item.images[2].url } src={ item.external_urls.spotify }/>
                                 }) }
