@@ -5,6 +5,8 @@ I chose this project mainly as a introductory project into working with React.js
 
 The project can be found online at: https://gorgeous-pasca-9a8527.netlify.app/
 
-Used references:
+### Reference list
+
 https://github.com/spotify/web-api-auth-examples
+
 https://developer.spotify.com/documentation/
